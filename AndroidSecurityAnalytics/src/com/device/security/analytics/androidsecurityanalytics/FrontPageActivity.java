@@ -147,7 +147,7 @@ public class FrontPageActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.itemRefresh:
-			Log.d("Refresh", "refresh");
+			//Log.d("Refresh", "refresh");
 			new CalculateScoreTask(this, "Calculating score...").execute();
 			// recalculateScore(null);
 			return true;
@@ -157,7 +157,7 @@ public class FrontPageActivity extends Activity {
 	}
 
 	public void recalculateScore(View view) {
-		Log.d("recalculateScore", "in recalculate score method");
+		//Log.d("recalculateScore", "in recalculate score method");
 
 		int score = AppResultsHelper.calculateRisk(getPackageManager(),
 				lockUtils);
@@ -169,7 +169,7 @@ public class FrontPageActivity extends Activity {
 	}
 
 	public void goToAppSecurity(View view) {
-		Log.d("goToAppSecurity", "in app security method");
+		//Log.d("goToAppSecurity", "in app security method");
 
 		Intent myIntent = new Intent(FrontPageActivity.this,
 				AppResultsActivity.class);
@@ -177,14 +177,14 @@ public class FrontPageActivity extends Activity {
 	}
 
 	public void goToDeviceSecurity(View view) {
-		Log.d("goToDeviceSecurity", "in device security method");
+		//Log.d("goToDeviceSecurity", "in device security method");
 		Intent deviceSecurityIntent = new Intent(FrontPageActivity.this,
 				DeviceSecurityActivity.class);
 		FrontPageActivity.this.startActivity(deviceSecurityIntent);
 	}
 
 	public void exportResults(View view) {
-		Log.d("exportResults", "exportResults method");
+		//Log.d("exportResults", "exportResults method");
 
 		new AlertDialog.Builder(this)
 				.setTitle("Go Pro & Support Us!")
@@ -235,12 +235,12 @@ public class FrontPageActivity extends Activity {
 			i.setType("text/plain");
 			startActivity(Intent.createChooser(i, "Send mail"));
 		} else {
-			Log.d("Error exporting", "There was an error exporting");
+			//Log.d("Error exporting", "There was an error exporting");
 		}
 	}
 
 	public void goToFaqInfo(View view) {
-		Log.d("goToFaqInfo", "go to fax info page method");
+		//Log.d("goToFaqInfo", "go to fax info page method");
 
 		Intent faqIntent = new Intent(FrontPageActivity.this, FaqActivity.class);
 		FrontPageActivity.this.startActivity(faqIntent);

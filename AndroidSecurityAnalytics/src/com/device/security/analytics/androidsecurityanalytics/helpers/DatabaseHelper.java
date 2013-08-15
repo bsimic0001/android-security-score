@@ -98,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 							| SQLiteDatabase.OPEN_READONLY);
 
 		} catch (SQLiteException e) {
-			Log.d("DB ERROR", e.getMessage());
+			//Log.d("DB ERROR", e.getMessage());
 		}
 
 		if (checkDB != null) {
@@ -186,7 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 							| SQLiteDatabase.OPEN_READONLY);
 
 		} catch (SQLException e) {
-			Log.d("SQL Exception", "could not open DB ", e);
+			//Log.d("SQL Exception", "could not open DB ", e);
 		}
 	}
 

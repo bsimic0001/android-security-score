@@ -48,8 +48,7 @@ public class AppUpdateReceiver extends BroadcastReceiver {
 			// mId allows you to update the notification later on.
 			mNotificationManager.notify(1, mBuilder.build());
 		} catch (NoClassDefFoundError e) {
-			Log.d("No class def found",
-					"TaskStackBuilder. Must be android version < 3");
+			//Log.d("No class def found", "TaskStackBuilder. Must be android version < 3");
 		}
 
 	}

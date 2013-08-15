@@ -292,7 +292,7 @@ public class AnalyticsUtils {
 				score = 4;
 		}
 		
-		Log.d("NEW PERM SCORE", type + " - " + score);
+		//Log.d("NEW PERM SCORE", type + " - " + score);
 		
 		return score;
 	}
