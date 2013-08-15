@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
@@ -66,8 +68,8 @@ public class FrontPageActivity extends Activity {
 
 		Intent sendIntent = new Intent(Intent.ACTION_SEND);
 		String subject = "Error report";
-		String body = "Mail this to bsimic0001@gmail.com: " + "\n\n"
-				+ trace + "\n\n";
+		String body = "Mail this to bsimic0001@gmail.com: " + "\n\n" + trace
+				+ "\n\n";
 
 		sendIntent.putExtra(Intent.EXTRA_EMAIL,
 				new String[] { "bsimic0001@gmail.com" });
@@ -92,12 +94,11 @@ public class FrontPageActivity extends Activity {
 
 		resultView.setText("Your security score is " + score + " / 100");
 		setGradeBackground(score);
-		
-		if(android.os.Build.VERSION.SDK_INT >= 16){
-			
+
+		if (android.os.Build.VERSION.SDK_INT >= 16) {
+
 			gradeView.setBackground(gradeBackground);
-		}
-		else
+		} else
 			gradeView.setBackgroundColor(Color.RED);
 
 		gradeView.setTextColor(Color.BLACK);
@@ -186,7 +187,34 @@ public class FrontPageActivity extends Activity {
 	public void exportResults(View view) {
 		Log.d("exportResults", "exportResults method");
 
-		new ReportExportTask(this, "Generating report...").execute();
+		new AlertDialog.Builder(this)
+				.setTitle("Go Pro & Support Us!")
+				.setMessage(
+						"The report is a Android Security Score Pro feature. Download it?")
+				.setPositiveButton("Yes, of Course!",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								try {
+									startActivity(new Intent(
+											Intent.ACTION_VIEW,
+											Uri.parse("market://details?id="
+													+ getPackageName())));
+								} catch (android.content.ActivityNotFoundException anfe) {
+									startActivity(new Intent(
+											Intent.ACTION_VIEW,
+											Uri.parse("http://play.google.com/store/apps/details?id="
+													+ getPackageName())));
+								}
+							}
+						})
+				.setNegativeButton("Maybe Later", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// do nothing
+					}
+				}).show();
+
+		// new ReportExportTask(this, "Generating report...").execute();
 	}
 
 	public void generateReportFile() {
