@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="DSATheme" parent="android:Theme.Light">
+
+    <item name="android:editTextStyle">@style/EditTextDSATheme</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewDSATheme</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxDSATheme</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonDSATheme</item>
+
+    <item name="android:buttonStyle">@style/ButtonDSATheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonDSATheme</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerDSATheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerDSATheme.DropDown</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemDSATheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarDSATheme</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarDSATheme</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallDSATheme</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleDSATheme</item>
+
+    <item name="android:listViewStyle">@style/ListViewDSATheme</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewDSATheme.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemDSATheme</item>
+
+  </style>
+
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Android Security Score</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="recalculateScoreButton">Recalculate Score</string>
+    <string name="appSecurityButton">App Security Details</string>
+    <string name="deviceSecurityButton">Device Security Details</string>
+    <string name="exportResultsButton">Email Results as a PDF</string>
+    <string name="faxInfoButton">FAQ/Info</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_device_security">DeviceSecurityActivity</string>
+    <string name="uninstallButton">Uninstall</string>
+    <string name="viewPermsButton">Permissions</string>
+    <string name="btnRefresh">Refresh</string>
+
+</resources>
