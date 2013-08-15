@@ -41,12 +41,10 @@ public class FrontPageActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
-
-		sendExistingStack();
+		//Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
+		//sendExistingStack();
 
 		setContentView(R.layout.front_page);
-
 		new CalculateScoreTask(this, "Calculating score...").execute();
 		// doMainActivity();
 	}
