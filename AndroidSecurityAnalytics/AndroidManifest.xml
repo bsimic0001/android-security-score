@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.device.security.analytics.androidsecurityanalytics"
+    package="com.device.security.analytics.androidsecurityanalyticspro"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -29,20 +29,20 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name="com.device.security.analytics.androidsecurityanalytics.ShowPermissionsActivity"
+            android:name="com.device.security.analytics.androidsecurityanalyticspro.ShowPermissionsActivity"
             android:label="Application Permissions" >
         </activity>
         <activity
-            android:name="com.device.security.analytics.androidsecurityanalytics.AppResultsActivity"
+            android:name="com.device.security.analytics.androidsecurityanalyticspro.AppResultsActivity"
             android:label="Application Security Results" >
         </activity>
         <activity
-            android:name="com.device.security.analytics.androidsecurityanalytics.AppDetailAction"
+            android:name="com.device.security.analytics.androidsecurityanalyticspro.AppDetailAction"
             android:label="Application Security Results" >
         </activity>
         <activity
-            android:name="com.device.security.analytics.androidsecurityanalytics.FrontPageActivity"
-            android:label="Android Security Score"
+            android:name="com.device.security.analytics.androidsecurityanalyticspro.FrontPageActivity"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,15 +51,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.device.security.analytics.androidsecurityanalytics.DeviceSecurityActivity"
+            android:name="com.device.security.analytics.androidsecurityanalyticspro.DeviceSecurityActivity"
             android:label="@string/title_activity_device_security" >
         </activity>
-        <activity android:name="com.device.security.analcom.device.security.analytics.androidsecurityanalytics.ResultExportActivity" >
+        <activity android:name="com.device.security.analytics.androidsecurityanalyticspro.ResultExportActivity" >
         </activity>
         
-        <activity android:name="com.device.security.analytics.androidsecurityanalytics.FaqActivity"/>
+        <activity android:name="com.device.security.analytics.androidsecurityanalyticspro.FaqActivity"/>
 
-        <receiver android:name="com.device.security.analytics.androidsecurityanalytics.receivers.AppUpdateReceiver">
+        <receiver android:name="com.device.security.analytics.androidsecurityanalyticspro.receivers.AppUpdateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_INSTALL" />
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
