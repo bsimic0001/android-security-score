@@ -147,7 +147,7 @@ public class AppResultsHelper {
 							.contains(packageInfo.applicationInfo.packageName)) {
 				// Gets permissions for the current app
 				String[] requestedPermissions = packageInfo.requestedPermissions;
-				Log.d("APP NAME", packageInfo.applicationInfo.packageName);
+				//Log.d("APP NAME", packageInfo.applicationInfo.packageName);
 				// Get permission percentages and permission data
 				permissionTracker.handleAppPermissions(requestedPermissions);
 
@@ -163,20 +163,20 @@ public class AppResultsHelper {
 				if (AnalyticsUtils.isAppThirdParty(packageManager,
 						packageInfo.packageName)) {
 					numberOfThirdPartyApps++;
-					Log.d("Third Party",
-							packageInfo.packageName
-									+ " : "
-									+ packageManager
-											.getInstallerPackageName(packageInfo.packageName));
+					//Log.d("Third Party",
+					//		packageInfo.packageName
+					//				+ " : "
+					//				+ packageManager
+					//						.getInstallerPackageName(packageInfo.packageName));
 				}
 
 				appsList.add(packageInfo.applicationInfo.packageName);
 			}
 		}
 
-		android.util.Log.d("Perm", permissionTracker.toString());
+		//android.util.Log.d("Perm", permissionTracker.toString());
 
-		Log.d("Age", appAgeHelper.toString());
+		//Log.d("Age", appAgeHelper.toString());
 
 		/*
 		 * Log.d("Points for Permissions", "Points: " +
@@ -214,39 +214,39 @@ public class AppResultsHelper {
 				.getScoreForAllClassifications(percentCritical, percentHigh,
 						percentMedium, percentLow);
 
-		Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
+		//Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
 
 		// ----------------- NEW END ---------------------------
 
 		int pointsForUnlockMethod = AnalyticsUtils
 				.getScoreForUnlockSettings(lockUtils);
 
-		Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
+		//Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
 		int pointsForThirdPartyApps = AnalyticsUtils
 				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
 
-		Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
-		Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
+		//Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
+		//Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
 
 		int pointsForEncryption = AnalyticsUtils
 				.getScoreForEncryptionSettings(lockUtils.getEncryptionScheme());
 
-		Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
+		//Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
 		int pointsForAge = AnalyticsUtils.getAppAgeScore(
 				appAgeHelper.getTwelveMonthsPercentage(),
 				appAgeHelper.getSixMonthsPercentage());
 
-		Log.d("PTS Age", "PTS: " + pointsForAge);
+		//Log.d("PTS Age", "PTS: " + pointsForAge);
 
 		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
-		Log.d("Root Access Points", "Root Points: " + rootedPoints);
+		//Log.d("Root Access Points", "Root Points: " + rootedPoints);
 
 		int totalPoints = pointsForPermissions + pointsForUnlockMethod
 				+ pointsForThirdPartyApps + pointsForEncryption + pointsForAge
 				+ rootedPoints;
-		Log.d("Total Points", "Pts: " + totalPoints + " / 100");
+		//Log.d("Total Points", "Pts: " + totalPoints + " / 100");
 
-		System.out.println(permissionTracker.toString());
+		//System.out.println(permissionTracker.toString());
 
 		result = totalPoints;
 		return result;

@@ -31,7 +31,7 @@ public class ResultExportActivity extends Activity {
 		startActivity(Intent.createChooser(i, "Send mail"));
 		}
 		else{
-			Log.d("Error exporting", "There was an error exporting");
+			//Log.d("Error exporting", "There was an error exporting");
 		}
 		
 	}

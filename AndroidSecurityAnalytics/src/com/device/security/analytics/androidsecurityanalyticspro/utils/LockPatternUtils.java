@@ -136,11 +136,11 @@ public class LockPatternUtils {
 		@Override
 		public void onEvent(int event, String path) {
 			if (LOCK_PATTERN_FILE.equals(path)) {
-				Log.d(TAG, "lock pattern file changed");
+				//Log.d(TAG, "lock pattern file changed");
 				sHaveNonZeroPatternFile.set(new File(sLockPatternFilename)
 						.length() > 0);
 			} else if (LOCK_PASSWORD_FILE.equals(path)) {
-				Log.d(TAG, "lock password file changed");
+				//Log.d(TAG, "lock password file changed");
 				sHaveNonZeroPasswordFile.set(new File(sLockPasswordFilename)
 						.length() > 0);
 			}
@@ -194,7 +194,7 @@ public class LockPatternUtils {
 			String dataSystemDirectory = android.os.Environment
 					.getDataDirectory().getAbsolutePath() + SYSTEM_DIRECTORY;
 
-			Log.d("Sys Dir", dataSystemDirectory);
+			//Log.d("Sys Dir", dataSystemDirectory);
 
 			sLockPatternFilename = dataSystemDirectory + LOCK_PATTERN_FILE;
 			sLockPasswordFilename = dataSystemDirectory + LOCK_PASSWORD_FILE;
@@ -225,11 +225,11 @@ public class LockPatternUtils {
 			else
 				return false;
 		} catch (RuntimeException e) {
-			Log.d("No Encryption Supported",
-					"Device does not support encryption");
+			//Log.d("No Encryption Supported",
+			//		"Device does not support encryption");
 		}
 		catch(NoSuchMethodError err){
-			Log.d("No such method", "no such method for this device", err);
+			//Log.d("No such method", "no such method for this device", err);
 		}
 
 		return false;
@@ -461,7 +461,7 @@ public class LockPatternUtils {
 			try {
 				salt = SecureRandom.getInstance("SHA1PRNG").nextLong();
 				setLong(LOCK_PASSWORD_SALT_KEY, salt);
-				Log.v(TAG, "Initialized lock password salt");
+				//Log.v(TAG, "Initialized lock password salt");
 			} catch (NoSuchAlgorithmException e) {
 				// Throw an exception rather than storing a password we'll never
 				// be able to recover
@@ -496,8 +496,8 @@ public class LockPatternUtils {
 					saltedPassword);
 			hashed = (toHex(sha1) + toHex(md5)).getBytes();
 		} catch (NoSuchAlgorithmException e) {
-			Log.w(TAG, "Failed to encode string because of missing algorithm: "
-					+ algo);
+			//Log.w(TAG, "Failed to encode string because of missing algorithm: "
+			//		+ algo);
 		}
 		return hashed;
 	}
@@ -526,16 +526,16 @@ public class LockPatternUtils {
 			if (keyGuardValue) {
 				return true;
 			} else {
-				Log.d("Keyguard", "Keyguard value is: " + keyGuardValue);
+				//Log.d("Keyguard", "Keyguard value is: " + keyGuardValue);
 			}
 		} catch (NoSuchMethodError e) {
-			Log.d("method not found",
-					"isKeyguardSecure not found on this device");
+			//Log.d("method not found",
+			//		"isKeyguardSecure not found on this device");
 		}
 
 		int mode = getDevicePolicyManager().getPasswordQuality(adminComponent);
 
-		Log.d("pass mode long --->", "pass mode long --->" + mode);
+		//Log.d("pass mode long --->", "pass mode long --->" + mode);
 		// Log.d("pass mode String --->", "pass mode String --->" + modeString);
 
 		// checkAndSetPolicy();

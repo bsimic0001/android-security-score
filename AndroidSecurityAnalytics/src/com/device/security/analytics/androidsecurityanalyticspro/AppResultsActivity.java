@@ -44,7 +44,7 @@ public class AppResultsActivity extends ListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int pos,
 					long arg3) {
-				Log.d("Item Click", "item: " + pos);
+				//Log.d("Item Click", "item: " + pos);
 				
 				if (pos == 0)
 					viewAllApps(v);
@@ -87,7 +87,7 @@ public class AppResultsActivity extends ListActivity {
 	}
 
 	public void viewAllApps(View v) {
-		Log.d("viewAllApps", "View all apps");
+		//Log.d("viewAllApps", "View all apps");
 		Intent myIntent = new Intent(AppResultsActivity.this,
 				AppDetailAction.class);
 		myIntent.putParcelableArrayListExtra("apps", allAppsList);
@@ -96,7 +96,7 @@ public class AppResultsActivity extends ListActivity {
 	}
 
 	public void viewCriticalApps(View v) {
-		Log.d("viewCriticalApps", "View critical apps");
+		//Log.d("viewCriticalApps", "View critical apps");
 		Intent myIntent = new Intent(AppResultsActivity.this,
 				AppDetailAction.class);
 		myIntent.putParcelableArrayListExtra("apps", criticalAppsList);
@@ -106,7 +106,7 @@ public class AppResultsActivity extends ListActivity {
 	}
 
 	public void viewHighApps(View v) {
-		Log.d("viewHighApps", "View high apps");
+		//Log.d("viewHighApps", "View high apps");
 		Intent myIntent = new Intent(AppResultsActivity.this,
 				AppDetailAction.class);
 		myIntent.putParcelableArrayListExtra("apps", highAppsList);
@@ -116,7 +116,7 @@ public class AppResultsActivity extends ListActivity {
 	}
 
 	public void viewMediumApps(View v) {
-		Log.d("viewMediumApps", "View medium apps");
+		//Log.d("viewMediumApps", "View medium apps");
 		Intent myIntent = new Intent(AppResultsActivity.this,
 				AppDetailAction.class);
 		myIntent.putParcelableArrayListExtra("apps", mediumAppsList);
@@ -126,7 +126,7 @@ public class AppResultsActivity extends ListActivity {
 	}
 
 	public void viewLowApps(View v) {
-		Log.d("viewLowApps", "View low apps");
+		//Log.d("viewLowApps", "View low apps");
 		Intent myIntent = new Intent(AppResultsActivity.this,
 				AppDetailAction.class);
 		myIntent.putParcelableArrayListExtra("apps", lowAppsList);
@@ -136,7 +136,7 @@ public class AppResultsActivity extends ListActivity {
 	}
 
 	public void onListItemClick(AdapterView<?> arg0, View v, int pos, long arg3) {
-		Log.d("app cat click", "pos: " + pos);
+		//Log.d("app cat click", "pos: " + pos);
 
 		if (pos == 0)
 			viewAllApps(v);

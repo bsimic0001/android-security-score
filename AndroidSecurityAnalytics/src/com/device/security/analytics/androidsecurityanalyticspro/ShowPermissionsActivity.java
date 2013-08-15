@@ -41,7 +41,7 @@ public class ShowPermissionsActivity extends Activity {
 			try {
 				dbHelper.createDataBase();
 			} catch (IOException e) {
-				Log.d("Exception", e.getMessage());
+				//Log.d("Exception", e.getMessage());
 			}
 			dbHelper.openDataBase();
 
