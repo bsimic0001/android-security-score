@@ -470,12 +470,11 @@ public class AnalyticsUtils {
 		if(installerPackage == null || (!installerPackage.equals("com.android.vending") && !installerPackage.equals("de.androidpit.app"))){
 			result = true;
 		}
-			
-		
-		
 		
 		return result;
-		
-		
+	}
+	
+	public static boolean isThisPackage(String packageName){
+		return packageName.equals("com.device.security.analytics.androidsecurityanalyticspro") || packageName.equals("com.device.security.analytics.androidsecurityanalytics");
 	}
 }
