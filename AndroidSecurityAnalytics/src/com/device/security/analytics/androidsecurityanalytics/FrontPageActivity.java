@@ -198,12 +198,12 @@ public class FrontPageActivity extends Activity {
 									startActivity(new Intent(
 											Intent.ACTION_VIEW,
 											Uri.parse("market://details?id="
-													+ getPackageName())));
+													+ getPackageName() + "pro")));
 								} catch (android.content.ActivityNotFoundException anfe) {
 									startActivity(new Intent(
 											Intent.ACTION_VIEW,
 											Uri.parse("http://play.google.com/store/apps/details?id="
-													+ getPackageName())));
+													+ getPackageName() + "pro")));
 								}
 							}
 						})
