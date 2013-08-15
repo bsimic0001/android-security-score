@@ -73,9 +73,7 @@ public class AppResultsHelper {
 			if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
-					&& !packageInfo.applicationInfo.packageName
-							.equals("com.device.security.analytics.androidsecurityanalytics")
-
+					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {
@@ -136,8 +134,8 @@ public class AppResultsHelper {
 			if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
-					&& !packageInfo.applicationInfo.packageName
-							.equals("com.device.security.analytics.androidsecurityanalytics")
+					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
+
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {

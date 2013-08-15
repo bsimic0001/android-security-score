@@ -35,9 +35,9 @@ public class DeviceSecurityActivity extends Activity {
 		setContentView(R.layout.device_cat_layout);
 		setTitle("Device Security Details");
 
-		//doMainAction();
-		//doPostAction();
-		
+		// doMainAction();
+		// doPostAction();
+
 		new ShowDeviceSecurityTask(this, "Getting device details...").execute();
 
 	}
@@ -68,8 +68,8 @@ public class DeviceSecurityActivity extends Activity {
 			if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
-					&& !packageInfo.applicationInfo.packageName
-							.equals("com.device.security.analytics.androidsecurityanalytics")
+					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
+
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {
@@ -249,14 +249,15 @@ public class DeviceSecurityActivity extends Activity {
 		getMenuInflater().inflate(R.menu.device_security, menu);
 		return true;
 	}
-	
+
 	private class ShowDeviceSecurityTask extends AsyncTask<Void, Void, Integer> {
 
 		private ProgressDialog dialog;
 		private DeviceSecurityActivity activity;
 		private String message;
 
-		public ShowDeviceSecurityTask(DeviceSecurityActivity activity, String message) {
+		public ShowDeviceSecurityTask(DeviceSecurityActivity activity,
+				String message) {
 			this.activity = activity;
 			dialog = new ProgressDialog(this.activity);
 			this.message = message;
