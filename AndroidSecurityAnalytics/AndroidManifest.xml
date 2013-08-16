@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
     </uses-permission>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
 
     <application
         android:allowBackup="true"
@@ -58,10 +59,9 @@
         </activity>
         <activity android:name="com.device.security.analytics.androidsecurityanalyticspro.ResultExportActivity" >
         </activity>
-        
-        <activity android:name="com.device.security.analytics.androidsecurityanalyticspro.FaqActivity"/>
+        <activity android:name="com.device.security.analytics.androidsecurityanalyticspro.FaqActivity" />
 
-        <receiver android:name="com.device.security.analytics.androidsecurityanalyticspro.receivers.AppUpdateReceiver">
+        <receiver android:name="com.device.security.analytics.androidsecurityanalyticspro.receivers.AppUpdateReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_INSTALL" />
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
