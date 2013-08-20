@@ -63,10 +63,17 @@ public class AppDetailAdapter extends ArrayAdapter<AppDetailBean> {
 
 			TextView thirdPartyTextView = (TextView) v
 					.findViewById(R.id.app_detail_thirdparty);
+<<<<<<< HEAD
 
 			dbHelper = new DatabaseHelper(context);
 			DatabaseHelper dbHelper = new DatabaseHelper(context);
 
+=======
+
+			dbHelper = new DatabaseHelper(context);
+			DatabaseHelper dbHelper = new DatabaseHelper(context);
+
+>>>>>>> trusted-app-branch
 			try {
 				dbHelper.createDataBase();
 			} catch (IOException e) {
@@ -134,12 +141,15 @@ public class AppDetailAdapter extends ArrayAdapter<AppDetailBean> {
 							.getBitmap();
 					it.setImageBitmap(image);
 				} catch (NameNotFoundException e) {
-					// Log.d("Name Not Found Exception", e.getMessage());
+<<<<<<< HEAD
 <<<<<<< HEAD
 					Log.d("Name Not Found Exception", e.getMessage());
 =======
 					// Log.d("Name Not Found Exception", e.getMessage());
 >>>>>>> 8515f6b... Added Trusted App Functionality
+=======
+					// Log.d("Name Not Found Exception", e.getMessage());
+>>>>>>> trusted-app-branch
 				}
 			}
 

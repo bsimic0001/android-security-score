@@ -474,7 +474,7 @@ public class FileCreationHelper {
 			try {
 				dbHelper.createDataBase();
 			} catch (IOException e) {
-				Log.d("ERROR", e.getMessage(), e);
+				//Log.d("ERROR", e.getMessage(), e);
 			}
 			dbHelper.openDataBase();
 

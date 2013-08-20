@@ -84,7 +84,7 @@ public class DeviceSecurityActivity extends Activity {
 							.contains(packageInfo.applicationInfo.packageName)) {
 				// Gets permissions for the current app
 				String[] requestedPermissions = packageInfo.requestedPermissions;
-				Log.d("APP NAME", packageInfo.applicationInfo.packageName);
+				//Log.d("APP NAME", packageInfo.applicationInfo.packageName);
 				// Get permission percentages and permission data
 
 				// Update value in the app age helper
@@ -99,12 +99,12 @@ public class DeviceSecurityActivity extends Activity {
 				if (AnalyticsUtils.isAppThirdParty(getPackageManager(),
 						packageInfo.packageName) && !dbHelper.isTrustedApp(packageInfo.packageName)) {
 					numberOfThirdPartyApps++;
-					Log.d("Third Party",
-							packageInfo.packageName
-									+ " : "
-									+ getPackageManager()
-											.getInstallerPackageName(
-													packageInfo.packageName));
+					//Log.d("Third Party",
+					//		packageInfo.packageName
+					//				+ " : "
+					//				+ getPackageManager()
+					//						.getInstallerPackageName(
+					//								packageInfo.packageName));
 				}
 
 				appsList.add(packageInfo.applicationInfo.packageName);
@@ -113,26 +113,26 @@ public class DeviceSecurityActivity extends Activity {
 
 		int pointsForThirdPartyApps = AnalyticsUtils
 				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
-		Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
-		Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
+		//Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
+		//Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
 
 		int pointsForUnlockMethod = AnalyticsUtils
 				.getScoreForUnlockSettings(lockUtils);
-		Log.d("PTS Unlock Method", "PTS: " + pointsForUnlockMethod);
+		//Log.d("PTS Unlock Method", "PTS: " + pointsForUnlockMethod);
 
 		int pointsForEncryption = AnalyticsUtils
 				.getScoreForEncryptionSettings(lockUtils.getEncryptionScheme());
-		Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
+		//Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
 
 		
 		
 		int pointsForAge = AnalyticsUtils.getAppAgeScore(
 				appAgeHelper.getTwelveMonthsPercentage(),
 				appAgeHelper.getSixMonthsPercentage());
-		Log.d("PTS Age", "PTS: " + pointsForAge);
+		//Log.d("PTS Age", "PTS: " + pointsForAge);
 
 		int pointsForRoot = AnalyticsUtils.getScoreForRootAccess();
-		Log.d("Pts Root", "Root Pts: " + pointsForRoot);
+		//Log.d("Pts Root", "Root Pts: " + pointsForRoot);
 
 		catBeanList = new ArrayList<DeviceCatBean>();
 
