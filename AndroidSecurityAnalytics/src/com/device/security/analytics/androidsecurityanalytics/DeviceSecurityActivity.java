@@ -1,5 +1,6 @@
 package com.device.security.analytics.androidsecurityanalytics;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import android.widget.ExpandableListView;
 import com.device.security.analytics.androidsecurityanalytics.adapters.DeviceCatAdapter;
 import com.device.security.analytics.androidsecurityanalytics.beans.DeviceCatBean;
 import com.device.security.analytics.androidsecurityanalytics.helpers.AppAgeHelper;
+import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 import com.device.security.analytics.androidsecurityanalytics.utils.AnalyticsUtils;
 import com.device.security.analytics.androidsecurityanalytics.utils.LockPatternUtils;
 
@@ -28,6 +30,7 @@ public class DeviceSecurityActivity extends Activity {
 
 	ExpandableListView listView;
 	ArrayList<DeviceCatBean> catBeanList;
+	DatabaseHelper dbHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,16 @@ public class DeviceSecurityActivity extends Activity {
 
 		// doMainAction();
 		// doPostAction();
+		
+		dbHelper = new DatabaseHelper(getApplicationContext());
 
+		try {
+			dbHelper.createDataBase();
+		} catch (IOException e) {
+			// Log.d("Exception", e.getMessage());
+		}
+		dbHelper.openDataBase();
 		new ShowDeviceSecurityTask(this, "Getting device details...").execute();
-
 	}
 
 	private void doPostAction() {
@@ -69,7 +79,6 @@ public class DeviceSecurityActivity extends Activity {
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
 					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
-
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {
@@ -88,7 +97,7 @@ public class DeviceSecurityActivity extends Activity {
 				// will not return
 				// a null installer package name.
 				if (AnalyticsUtils.isAppThirdParty(getPackageManager(),
-						packageInfo.packageName)) {
+						packageInfo.packageName) && !dbHelper.isTrustedApp(packageInfo.packageName)) {
 					numberOfThirdPartyApps++;
 					//Log.d("Third Party",
 					//		packageInfo.packageName
@@ -115,6 +124,8 @@ public class DeviceSecurityActivity extends Activity {
 				.getScoreForEncryptionSettings(lockUtils.getEncryptionScheme());
 		//Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
 
+		
+		
 		int pointsForAge = AnalyticsUtils.getAppAgeScore(
 				appAgeHelper.getTwelveMonthsPercentage(),
 				appAgeHelper.getSixMonthsPercentage());

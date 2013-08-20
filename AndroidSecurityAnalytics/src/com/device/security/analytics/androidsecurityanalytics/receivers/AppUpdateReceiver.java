@@ -1,5 +1,7 @@
 package com.device.security.analytics.androidsecurityanalytics.receivers;
 
+import java.io.IOException;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -11,6 +13,7 @@ import android.util.Log;
 
 import com.device.security.analytics.androidsecurityanalytics.FrontPageActivity;
 import com.device.security.analytics.androidsecurityanalytics.helpers.AppResultsHelper;
+import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 import com.device.security.analytics.androidsecurityanalytics.utils.AnalyticsUtils;
 import com.device.security.analytics.androidsecurityanalytics.utils.LockPatternUtils;
 import com.device.security.analytics.androidsecurityanalytics.R;
@@ -22,8 +25,18 @@ public class AppUpdateReceiver extends BroadcastReceiver {
 
 		LockPatternUtils lockUtils = new LockPatternUtils(
 				context.getApplicationContext());
+		
+		DatabaseHelper dbHelper = new DatabaseHelper(context);
+
+		try {
+			dbHelper.createDataBase();
+		} catch (IOException e) {
+			// Log.d("Exception", e.getMessage());
+		}
+		dbHelper.openDataBase();
+		
 		int score = AppResultsHelper.calculateRisk(context.getPackageManager(),
-				lockUtils);
+				lockUtils, dbHelper);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				context)

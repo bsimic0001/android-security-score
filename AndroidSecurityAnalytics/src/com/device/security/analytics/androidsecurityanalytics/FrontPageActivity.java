@@ -17,17 +17,15 @@ import android.graphics.drawable.shapes.RoundRectShape;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.device.security.analytics.androidsecurityanalytics.exceptions.TopExceptionHandler;
 import com.device.security.analytics.androidsecurityanalytics.helpers.AppResultsHelper;
+import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 import com.device.security.analytics.androidsecurityanalytics.helpers.FileCreationHelper;
-import com.device.security.analytics.androidsecurityanalytics.tasks.ReportExportTask;
 import com.device.security.analytics.androidsecurityanalytics.utils.AnalyticsUtils;
 import com.device.security.analytics.androidsecurityanalytics.utils.LockPatternUtils;
 
@@ -43,7 +41,6 @@ public class FrontPageActivity extends Activity {
 
 		//Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 		//sendExistingStack();
-
 		setContentView(R.layout.front_page);
 
 		new CalculateScoreTask(this, "Calculating score...").execute();
@@ -82,9 +79,9 @@ public class FrontPageActivity extends Activity {
 		FrontPageActivity.this.deleteFile("stack.trace");
 	}
 
-	public void doMainActivity() {
+	public void doMainActivity(DatabaseHelper dbHelper) {
 		lockUtils = new LockPatternUtils(getApplicationContext());
-		score = AppResultsHelper.calculateRisk(getPackageManager(), lockUtils);
+		score = AppResultsHelper.calculateRisk(getPackageManager(), lockUtils, dbHelper);
 	}
 
 	public void updateMainUI() {
@@ -159,8 +156,16 @@ public class FrontPageActivity extends Activity {
 	public void recalculateScore(View view) {
 		//Log.d("recalculateScore", "in recalculate score method");
 
+		DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+		try {
+			dbHelper.createDataBase();
+		} catch (IOException e) {
+			// Log.d("Exception", e.getMessage());
+		}
+		dbHelper.openDataBase();
+		
 		int score = AppResultsHelper.calculateRisk(getPackageManager(),
-				lockUtils);
+				lockUtils, dbHelper);
 
 		TextView gradeView = (TextView) findViewById(R.id.analytics_grade);
 		setGradeBackground(score);
@@ -251,11 +256,21 @@ public class FrontPageActivity extends Activity {
 		private ProgressDialog dialog;
 		private FrontPageActivity activity;
 		private String message;
+		DatabaseHelper dbHelper;
 
 		public CalculateScoreTask(FrontPageActivity activity, String message) {
 			this.activity = activity;
 			dialog = new ProgressDialog(this.activity);
 			this.message = message;
+			
+			dbHelper = new DatabaseHelper(getApplicationContext());
+			try {
+				dbHelper.createDataBase();
+			} catch (IOException e) {
+				// Log.d("Exception", e.getMessage());
+			}
+			dbHelper.openDataBase();
+			
 		}
 
 		@Override
@@ -266,7 +281,7 @@ public class FrontPageActivity extends Activity {
 
 		@Override
 		protected Integer doInBackground(Void... params) {
-			activity.doMainActivity();
+			activity.doMainActivity(dbHelper);
 			return 0;
 		}
 

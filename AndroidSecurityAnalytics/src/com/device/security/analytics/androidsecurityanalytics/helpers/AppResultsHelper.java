@@ -25,17 +25,25 @@ public class AppResultsHelper {
 			ArrayList<AppDetailBean> criticalAppsList,
 			ArrayList<AppDetailBean> highAppsList,
 			ArrayList<AppDetailBean> mediumAppsList,
-			ArrayList<AppDetailBean> lowAppsList) {
+			ArrayList<AppDetailBean> lowAppsList,
+			ArrayList<AppDetailBean> trustedAppsList,
+			DatabaseHelper dbHelper) {
 
 		for (Iterator iterator = appDetails.iterator(); iterator.hasNext();) {
 			AppDetailBean appDetailBean = (AppDetailBean) iterator.next();
 
+			allAppsList.add(appDetailBean);
+			
+			if(dbHelper.isTrustedApp(appDetailBean.getPackageName())){
+				trustedAppsList.add(appDetailBean);
+				continue;
+			}
+			
 			int classification = AnalyticsUtils.getAppClassification(
 					appDetailBean.getPermissionBean().getTop10Permissions(),
 					appDetailBean.getPermissionBean().getTop20Permissions(),
 					appDetailBean.getPermissionBean().getTop30Permissions());
 
-			allAppsList.add(appDetailBean);
 
 			if (classification == AnalyticsUtils.CRITICAL) {
 				criticalAppsList.add(appDetailBean);
@@ -49,11 +57,12 @@ public class AppResultsHelper {
 			if (classification == AnalyticsUtils.LOW) {
 				lowAppsList.add(appDetailBean);
 			}
+
 		}
 	}
 
 	public static ArrayList<AppDetailBean> calculateAppsList(
-			PackageManager packageManager) {
+			PackageManager packageManager, DatabaseHelper dbHelper) {
 		ArrayList<AppDetailBean> appDetails = new ArrayList<AppDetailBean>();
 
 		// final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -74,6 +83,7 @@ public class AppResultsHelper {
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
 					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
+					//&& !dbHelper.isTrustedApp(packageInfo.packageName)
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {
@@ -111,7 +121,7 @@ public class AppResultsHelper {
 	}
 
 	public static int calculateRisk(PackageManager packageManager,
-			LockPatternUtils lockUtils) {
+			LockPatternUtils lockUtils, DatabaseHelper dbHelper) {
 		int result = 0;
 
 		final List<PackageInfo> packageList = packageManager
@@ -135,7 +145,6 @@ public class AppResultsHelper {
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
 					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
-
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {
@@ -155,7 +164,7 @@ public class AppResultsHelper {
 				// will not return
 				// a null installer package name.
 				if (AnalyticsUtils.isAppThirdParty(packageManager,
-						packageInfo.packageName)) {
+						packageInfo.packageName) && !dbHelper.isTrustedApp(packageInfo.packageName)) {
 					numberOfThirdPartyApps++;
 					// Log.d("Third Party", packageInfo.packageName + " : " +
 					// packageManager.getInstallerPackageName(packageInfo.packageName));
@@ -165,9 +174,9 @@ public class AppResultsHelper {
 			}
 		}
 
-		//android.util.Log.d("Perm", permissionTracker.toString());
+		// android.util.Log.d("Perm", permissionTracker.toString());
 
-		//Log.d("Age", appAgeHelper.toString());
+		// Log.d("Age", appAgeHelper.toString());
 
 		/*
 		 * Log.d("Points for Permissions", "Points: " +
@@ -188,11 +197,12 @@ public class AppResultsHelper {
 		ArrayList<AppDetailBean> highAppsList = new ArrayList<AppDetailBean>();
 		ArrayList<AppDetailBean> mediumAppsList = new ArrayList<AppDetailBean>();
 		ArrayList<AppDetailBean> lowAppsList = new ArrayList<AppDetailBean>();
+		ArrayList<AppDetailBean> trustedAppsList = new ArrayList<AppDetailBean>();
 
 		ArrayList<AppDetailBean> appDetailList;
-		appDetailList = AppResultsHelper.calculateAppsList(packageManager);
+		appDetailList = AppResultsHelper.calculateAppsList(packageManager, dbHelper);
 		AppResultsHelper.calculateAppResults(appDetailList, allAppsList,
-				criticalAppsList, highAppsList, mediumAppsList, lowAppsList);
+				criticalAppsList, highAppsList, mediumAppsList, lowAppsList, trustedAppsList, dbHelper);
 
 		float percentCritical = (criticalAppsList.size() * 100.0f)
 				/ allAppsList.size();
@@ -205,37 +215,40 @@ public class AppResultsHelper {
 				.getScoreForAllClassifications(percentCritical, percentHigh,
 						percentMedium, percentLow);
 
-		//Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
+		// Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
 
 		// ----------------- NEW END ---------------------------
 
 		int pointsForUnlockMethod = AnalyticsUtils
 				.getScoreForUnlockSettings(lockUtils);
 
-		//Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
+		// Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
 		int pointsForThirdPartyApps = AnalyticsUtils
 				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
 
-		//Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
-//		Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
+		// Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
+		// Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
 
 		int pointsForEncryption = AnalyticsUtils
 				.getScoreForEncryptionSettings(lockUtils.getEncryptionScheme());
 
-//		Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
+		// Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
+		
+		//appAgeHelper.setTotalApps(allAppsList.size());
+		
 		int pointsForAge = AnalyticsUtils.getAppAgeScore(
 				appAgeHelper.getTwelveMonthsPercentage(),
 				appAgeHelper.getSixMonthsPercentage());
 
-//		Log.d("PTS Age", "PTS: " + pointsForAge);
+		// Log.d("PTS Age", "PTS: " + pointsForAge);
 
 		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
-//		Log.d("Root Access Points", "Root Points: " + rootedPoints);
+		// Log.d("Root Access Points", "Root Points: " + rootedPoints);
 
 		int totalPoints = pointsForPermissions + pointsForUnlockMethod
 				+ pointsForThirdPartyApps + pointsForEncryption + pointsForAge
 				+ rootedPoints;
-//		Log.d("Total Points", "Pts: " + totalPoints + " / 100");
+		// Log.d("Total Points", "Pts: " + totalPoints + " / 100");
 
 		System.out.println(permissionTracker.toString());
 

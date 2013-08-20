@@ -57,6 +57,10 @@ public class AppAgeHelper {
 		return totalApps;
 	}
 	
+	public void setTotalApps(int totalApps){
+		this.totalApps = totalApps;
+	}
+	
 	@Override
 	public String toString() {
 	    String NEW_LINE = System.getProperty("line.separator");
@@ -71,5 +75,7 @@ public class AppAgeHelper {
 		
 		return value.toString();
 	}
+	
+
 	
 }

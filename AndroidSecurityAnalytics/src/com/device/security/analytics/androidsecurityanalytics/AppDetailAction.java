@@ -33,6 +33,8 @@ public class AppDetailAction extends Activity {
 		
 		if(type != null && type.equals("all"))
 			setTitle("All Apps Analyzed");
+		else if(type != null && type.equals("trusted"))
+			setTitle("Apps Marked Trusted");
 		else
 			setTitle(type + " Risk Apps");
 		
