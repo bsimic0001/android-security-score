@@ -150,7 +150,7 @@ public class AppResultsHelper {
 							.contains(packageInfo.applicationInfo.packageName)) {
 				// Gets permissions for the current app
 				String[] requestedPermissions = packageInfo.requestedPermissions;
-				Log.d("APP NAME", packageInfo.applicationInfo.packageName);
+				// Log.d("APP NAME", packageInfo.applicationInfo.packageName);
 				// Get permission percentages and permission data
 				permissionTracker.handleAppPermissions(requestedPermissions);
 
@@ -166,23 +166,17 @@ public class AppResultsHelper {
 				if (AnalyticsUtils.isAppThirdParty(packageManager,
 						packageInfo.packageName) && !dbHelper.isTrustedApp(packageInfo.packageName)) {
 					numberOfThirdPartyApps++;
-					Log.d("Third Party",
-							packageInfo.packageName
-									+ " : "
-									+ packageManager
-											.getInstallerPackageName(packageInfo.packageName));
+					// Log.d("Third Party", packageInfo.packageName + " : " +
+					// packageManager.getInstallerPackageName(packageInfo.packageName));
 				}
 
 				appsList.add(packageInfo.applicationInfo.packageName);
 			}
 		}
 
-<<<<<<< HEAD
-		android.util.Log.d("Perm", permissionTracker.toString());
-
-		Log.d("Age", appAgeHelper.toString());
-=======
 		// android.util.Log.d("Perm", permissionTracker.toString());
+
+		// Log.d("Age", appAgeHelper.toString());
 
 		// Log.d("Age", appAgeHelper.toString());
 >>>>>>> 8515f6b... Added Trusted App Functionality
@@ -224,28 +218,19 @@ public class AppResultsHelper {
 				.getScoreForAllClassifications(percentCritical, percentHigh,
 						percentMedium, percentLow);
 
-<<<<<<< HEAD
-		Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
-=======
 		// Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
->>>>>>> 8515f6b... Added Trusted App Functionality
 
 		// ----------------- NEW END ---------------------------
 
 		int pointsForUnlockMethod = AnalyticsUtils
 				.getScoreForUnlockSettings(lockUtils);
 
-<<<<<<< HEAD
-		Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
-		int pointsForThirdPartyApps = AnalyticsUtils
-				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
-
-		Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
-		Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
-=======
 		// Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
 		int pointsForThirdPartyApps = AnalyticsUtils
 				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
+
+		// Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
+		// Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
 
 		// Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
 		// Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
@@ -254,25 +239,18 @@ public class AppResultsHelper {
 		int pointsForEncryption = AnalyticsUtils
 				.getScoreForEncryptionSettings(lockUtils.getEncryptionScheme());
 
-<<<<<<< HEAD
-		Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
-=======
 		// Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
 		
 		//appAgeHelper.setTotalApps(allAppsList.size());
 		
->>>>>>> 8515f6b... Added Trusted App Functionality
 		int pointsForAge = AnalyticsUtils.getAppAgeScore(
 				appAgeHelper.getTwelveMonthsPercentage(),
 				appAgeHelper.getSixMonthsPercentage());
 
-<<<<<<< HEAD
-		Log.d("PTS Age", "PTS: " + pointsForAge);
+		// Log.d("PTS Age", "PTS: " + pointsForAge);
 
 		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
-		Log.d("Root Access Points", "Root Points: " + rootedPoints);
-=======
-		// Log.d("PTS Age", "PTS: " + pointsForAge);
+		// Log.d("Root Access Points", "Root Points: " + rootedPoints);
 
 		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
 		// Log.d("Root Access Points", "Root Points: " + rootedPoints);
@@ -281,11 +259,7 @@ public class AppResultsHelper {
 		int totalPoints = pointsForPermissions + pointsForUnlockMethod
 				+ pointsForThirdPartyApps + pointsForEncryption + pointsForAge
 				+ rootedPoints;
-<<<<<<< HEAD
-		Log.d("Total Points", "Pts: " + totalPoints + " / 100");
-=======
 		// Log.d("Total Points", "Pts: " + totalPoints + " / 100");
->>>>>>> 8515f6b... Added Trusted App Functionality
 
 		System.out.println(permissionTracker.toString());
 

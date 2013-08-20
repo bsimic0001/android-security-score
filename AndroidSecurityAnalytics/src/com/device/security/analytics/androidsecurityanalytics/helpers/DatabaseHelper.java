@@ -102,10 +102,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		} catch (SQLiteException e) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			Log.d("DB ERROR", e.getMessage());
 =======
 			// Log.d("DB ERROR", e.getMessage());
 >>>>>>> 8515f6b... Added Trusted App Functionality
+=======
+			// Log.d("DB ERROR", e.getMessage());
+>>>>>>> trusted-app-branch
 		}
 
 		if (checkDB != null) {
@@ -194,10 +198,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		} catch (SQLException e) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			Log.d("SQL Exception", "could not open DB ", e);
 =======
 			// Log.d("SQL Exception", "could not open DB ", e);
 >>>>>>> 8515f6b... Added Trusted App Functionality
+=======
+			// Log.d("SQL Exception", "could not open DB ", e);
+>>>>>>> trusted-app-branch
 		}
 	}
 

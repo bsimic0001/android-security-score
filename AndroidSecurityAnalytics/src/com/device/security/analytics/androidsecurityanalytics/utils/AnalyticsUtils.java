@@ -255,6 +255,7 @@ public class AnalyticsUtils {
 				score = 4;
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 		Log.d("NEW PERM SCORE", type + " - " + score);
 		
@@ -263,6 +264,11 @@ public class AnalyticsUtils {
 		// Log.d("NEW PERM SCORE", type + " - " + score);
 
 >>>>>>> 8515f6b... Added Trusted App Functionality
+=======
+
+		// Log.d("NEW PERM SCORE", type + " - " + score);
+
+>>>>>>> trusted-app-branch
 		return score;
 	}
 
