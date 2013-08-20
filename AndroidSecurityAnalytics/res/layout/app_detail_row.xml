@@ -59,15 +59,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/uninstallButton" />
+                android:includeFontPadding="false"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:text="@string/uninstallButton"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/show_perms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/viewPermsButton" />
+                android:includeFontPadding="false"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:text="@string/viewPermsButton"
+                android:textSize="14sp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/trust_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text=""
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

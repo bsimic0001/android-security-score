@@ -82,6 +82,15 @@ public class FileCreationHelper {
 
 		Time now = new Time();
 		now.setToNow();
+		
+		DatabaseHelper dbHelper = new DatabaseHelper(context);
+
+		try {
+			dbHelper.createDataBase();
+		} catch (IOException e) {
+			// Log.d("Exception", e.getMessage());
+		}
+		dbHelper.openDataBase();
 
 		String timeString = now.format2445();
 
@@ -94,14 +103,15 @@ public class FileCreationHelper {
 			ArrayList<AppDetailBean> highAppsList = new ArrayList<AppDetailBean>();
 			ArrayList<AppDetailBean> mediumAppsList = new ArrayList<AppDetailBean>();
 			ArrayList<AppDetailBean> lowAppsList = new ArrayList<AppDetailBean>();
+			ArrayList<AppDetailBean> trustedAppSlist = new ArrayList<AppDetailBean>();
 
 			ArrayList<AppDetailBean> appDetailList;
-			appDetailList = AppResultsHelper.calculateAppsList(packageManager);
+			appDetailList = AppResultsHelper.calculateAppsList(packageManager, dbHelper);
 
 			AppResultsHelper
 					.calculateAppResults(appDetailList, allAppsList,
 							criticalAppsList, highAppsList, mediumAppsList,
-							lowAppsList);
+							lowAppsList, trustedAppSlist, dbHelper);
 
 			out = new FileOutputStream(file);
 			Document document = new Document();
@@ -110,7 +120,7 @@ public class FileCreationHelper {
 			document.open();
 			addMetaData(document);
 			addTitlePage(document, packageManager, lockUtils, allAppsList,
-					criticalAppsList, highAppsList, mediumAppsList, lowAppsList);
+					criticalAppsList, highAppsList, mediumAppsList, lowAppsList, dbHelper);
 			addContent(document, packageManager, context, lockUtils, allAppsList,
 					criticalAppsList, highAppsList, mediumAppsList, lowAppsList);
 			document.close();
@@ -136,7 +146,7 @@ public class FileCreationHelper {
 			ArrayList<AppDetailBean> criticalAppsList,
 			ArrayList<AppDetailBean> highAppsList,
 			ArrayList<AppDetailBean> mediumAppsList,
-			ArrayList<AppDetailBean> lowAppsList) throws DocumentException {
+			ArrayList<AppDetailBean> lowAppsList, DatabaseHelper dbHelper) throws DocumentException {
 		Paragraph preface = new Paragraph();
 		// We add one empty line
 		addEmptyLine(preface, 1);
@@ -165,7 +175,7 @@ public class FileCreationHelper {
 
 		addOverallResults(document, preface, packageManager, lockUtils,
 				allAppsList, criticalAppsList, highAppsList, mediumAppsList,
-				lowAppsList);
+				lowAppsList, dbHelper);
 		addEmptyLine(preface, 1);
 
 		document.add(preface);
@@ -179,10 +189,10 @@ public class FileCreationHelper {
 			ArrayList<AppDetailBean> criticalAppsList,
 			ArrayList<AppDetailBean> highAppsList,
 			ArrayList<AppDetailBean> mediumAppsList,
-			ArrayList<AppDetailBean> lowAppsList) {
+			ArrayList<AppDetailBean> lowAppsList, DatabaseHelper dbHelper) {
 
 		int totalScore = AppResultsHelper.calculateRisk(packageManager,
-				lockUtils);
+				lockUtils, dbHelper);
 
 		Paragraph overallScore = new Paragraph("Your Device's Total Score is "
 				+ totalScore + "/100", catFont);

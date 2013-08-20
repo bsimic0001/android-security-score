@@ -1,5 +1,6 @@
 package com.device.security.analytics.androidsecurityanalytics;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
@@ -7,7 +8,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -15,7 +15,9 @@ import android.widget.ListView;
 
 import com.device.security.analytics.androidsecurityanalytics.adapters.ImageAdapter;
 import com.device.security.analytics.androidsecurityanalytics.beans.AppDetailBean;
+import com.device.security.analytics.androidsecurityanalytics.beans.TrustedApp;
 import com.device.security.analytics.androidsecurityanalytics.helpers.AppResultsHelper;
+import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 
 public class AppResultsActivity extends ListActivity {
 
@@ -24,12 +26,21 @@ public class AppResultsActivity extends ListActivity {
 	private ArrayList<AppDetailBean> highAppsList;
 	private ArrayList<AppDetailBean> mediumAppsList;
 	private ArrayList<AppDetailBean> lowAppsList;
+	private ArrayList<AppDetailBean> trustedApps;
 	private String[] listItems;
+	private DatabaseHelper dbHelper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setContentView(R.layout.app_category_main);
+		new ShowAppResultsTask(this, "Getting app details...").execute();
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
 		setContentView(R.layout.app_category_main);
 		new ShowAppResultsTask(this, "Getting app details...").execute();
 	}
@@ -56,6 +67,8 @@ public class AppResultsActivity extends ListActivity {
 					viewMediumApps(v);
 				else if (pos == 4)
 					viewLowApps(v);
+				else if (pos == 5)
+					viewTrustedApps(v);
 
 			}
 		});
@@ -67,13 +80,23 @@ public class AppResultsActivity extends ListActivity {
 		highAppsList = new ArrayList<AppDetailBean>();
 		mediumAppsList = new ArrayList<AppDetailBean>();
 		lowAppsList = new ArrayList<AppDetailBean>();
-
+		trustedApps = new ArrayList<AppDetailBean>();
+		
 		ArrayList<AppDetailBean> appDetailList;
 
-		appDetailList = AppResultsHelper.calculateAppsList(getPackageManager());
+		dbHelper = new DatabaseHelper(getApplicationContext());
+
+		try {
+			dbHelper.createDataBase();
+		} catch (IOException e) {
+			// Log.d("Exception", e.getMessage());
+		}
+		dbHelper.openDataBase();
+				
+		appDetailList = AppResultsHelper.calculateAppsList(getPackageManager(), dbHelper);
 
 		AppResultsHelper.calculateAppResults(appDetailList, allAppsList,
-				criticalAppsList, highAppsList, mediumAppsList, lowAppsList);
+				criticalAppsList, highAppsList, mediumAppsList, lowAppsList, trustedApps, dbHelper);
 
 		String[] listItemsTemp = {
 				allAppsList.size() + " Total Apps Analyzed",
@@ -81,6 +104,7 @@ public class AppResultsActivity extends ListActivity {
 				highAppsList.size() + " High Risk Apps",
 				mediumAppsList.size() + " Medium Risk Apps",
 				lowAppsList.size() + " Low Risk Apps",
+				trustedApps.size() + " Apps Marked Trusted"
 				};
 		
 		listItems = listItemsTemp;
@@ -134,6 +158,14 @@ public class AppResultsActivity extends ListActivity {
 
 		AppResultsActivity.this.startActivity(myIntent);
 	}
+	
+	public void viewTrustedApps(View v){
+		Intent myIntent = new Intent(AppResultsActivity.this,
+				AppDetailAction.class);
+		myIntent.putParcelableArrayListExtra("apps", trustedApps);
+		myIntent.putExtra("type", "trusted");
+		AppResultsActivity.this.startActivity(myIntent);
+	}
 
 	public void onListItemClick(AdapterView<?> arg0, View v, int pos, long arg3) {
 		Log.d("app cat click", "pos: " + pos);
@@ -148,6 +180,8 @@ public class AppResultsActivity extends ListActivity {
 			viewMediumApps(v);
 		else if (pos == 4)
 			viewLowApps(v);
+		else if (pos == 5)
+			viewTrustedApps(v);
 	}
 	
 	private class ShowAppResultsTask extends AsyncTask<Void, Void, Integer> {

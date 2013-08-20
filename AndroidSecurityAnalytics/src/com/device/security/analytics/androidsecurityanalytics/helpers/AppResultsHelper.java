@@ -25,17 +25,25 @@ public class AppResultsHelper {
 			ArrayList<AppDetailBean> criticalAppsList,
 			ArrayList<AppDetailBean> highAppsList,
 			ArrayList<AppDetailBean> mediumAppsList,
-			ArrayList<AppDetailBean> lowAppsList) {
+			ArrayList<AppDetailBean> lowAppsList,
+			ArrayList<AppDetailBean> trustedAppsList,
+			DatabaseHelper dbHelper) {
 
 		for (Iterator iterator = appDetails.iterator(); iterator.hasNext();) {
 			AppDetailBean appDetailBean = (AppDetailBean) iterator.next();
 
+			allAppsList.add(appDetailBean);
+			
+			if(dbHelper.isTrustedApp(appDetailBean.getPackageName())){
+				trustedAppsList.add(appDetailBean);
+				continue;
+			}
+			
 			int classification = AnalyticsUtils.getAppClassification(
 					appDetailBean.getPermissionBean().getTop10Permissions(),
 					appDetailBean.getPermissionBean().getTop20Permissions(),
 					appDetailBean.getPermissionBean().getTop30Permissions());
 
-			allAppsList.add(appDetailBean);
 
 			if (classification == AnalyticsUtils.CRITICAL) {
 				criticalAppsList.add(appDetailBean);
@@ -49,11 +57,12 @@ public class AppResultsHelper {
 			if (classification == AnalyticsUtils.LOW) {
 				lowAppsList.add(appDetailBean);
 			}
+
 		}
 	}
 
 	public static ArrayList<AppDetailBean> calculateAppsList(
-			PackageManager packageManager) {
+			PackageManager packageManager, DatabaseHelper dbHelper) {
 		ArrayList<AppDetailBean> appDetails = new ArrayList<AppDetailBean>();
 
 		// final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -74,6 +83,7 @@ public class AppResultsHelper {
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
 					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
+					//&& !dbHelper.isTrustedApp(packageInfo.packageName)
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {
@@ -111,7 +121,7 @@ public class AppResultsHelper {
 	}
 
 	public static int calculateRisk(PackageManager packageManager,
-			LockPatternUtils lockUtils) {
+			LockPatternUtils lockUtils, DatabaseHelper dbHelper) {
 		int result = 0;
 
 		final List<PackageInfo> packageList = packageManager
@@ -135,7 +145,6 @@ public class AppResultsHelper {
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
 					&& !AnalyticsUtils.isThisPackage(packageInfo.packageName)
-
 					&& packageInfo.requestedPermissions != null
 					&& !appsList
 							.contains(packageInfo.applicationInfo.packageName)) {
@@ -155,7 +164,7 @@ public class AppResultsHelper {
 				// will not return
 				// a null installer package name.
 				if (AnalyticsUtils.isAppThirdParty(packageManager,
-						packageInfo.packageName)) {
+						packageInfo.packageName) && !dbHelper.isTrustedApp(packageInfo.packageName)) {
 					numberOfThirdPartyApps++;
 					Log.d("Third Party",
 							packageInfo.packageName
@@ -168,9 +177,15 @@ public class AppResultsHelper {
 			}
 		}
 
+<<<<<<< HEAD
 		android.util.Log.d("Perm", permissionTracker.toString());
 
 		Log.d("Age", appAgeHelper.toString());
+=======
+		// android.util.Log.d("Perm", permissionTracker.toString());
+
+		// Log.d("Age", appAgeHelper.toString());
+>>>>>>> 8515f6b... Added Trusted App Functionality
 
 		/*
 		 * Log.d("Points for Permissions", "Points: " +
@@ -191,11 +206,12 @@ public class AppResultsHelper {
 		ArrayList<AppDetailBean> highAppsList = new ArrayList<AppDetailBean>();
 		ArrayList<AppDetailBean> mediumAppsList = new ArrayList<AppDetailBean>();
 		ArrayList<AppDetailBean> lowAppsList = new ArrayList<AppDetailBean>();
+		ArrayList<AppDetailBean> trustedAppsList = new ArrayList<AppDetailBean>();
 
 		ArrayList<AppDetailBean> appDetailList;
-		appDetailList = AppResultsHelper.calculateAppsList(packageManager);
+		appDetailList = AppResultsHelper.calculateAppsList(packageManager, dbHelper);
 		AppResultsHelper.calculateAppResults(appDetailList, allAppsList,
-				criticalAppsList, highAppsList, mediumAppsList, lowAppsList);
+				criticalAppsList, highAppsList, mediumAppsList, lowAppsList, trustedAppsList, dbHelper);
 
 		float percentCritical = (criticalAppsList.size() * 100.0f)
 				/ allAppsList.size();
@@ -208,37 +224,68 @@ public class AppResultsHelper {
 				.getScoreForAllClassifications(percentCritical, percentHigh,
 						percentMedium, percentLow);
 
+<<<<<<< HEAD
 		Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
+=======
+		// Log.d("Pts for perms", "Pts for perms 2 - " + pointsForPermissions);
+>>>>>>> 8515f6b... Added Trusted App Functionality
 
 		// ----------------- NEW END ---------------------------
 
 		int pointsForUnlockMethod = AnalyticsUtils
 				.getScoreForUnlockSettings(lockUtils);
 
+<<<<<<< HEAD
 		Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
 		int pointsForThirdPartyApps = AnalyticsUtils
 				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
 
 		Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
 		Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
+=======
+		// Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
+		int pointsForThirdPartyApps = AnalyticsUtils
+				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
+
+		// Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
+		// Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
+>>>>>>> 8515f6b... Added Trusted App Functionality
 
 		int pointsForEncryption = AnalyticsUtils
 				.getScoreForEncryptionSettings(lockUtils.getEncryptionScheme());
 
+<<<<<<< HEAD
 		Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
+=======
+		// Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
+		
+		//appAgeHelper.setTotalApps(allAppsList.size());
+		
+>>>>>>> 8515f6b... Added Trusted App Functionality
 		int pointsForAge = AnalyticsUtils.getAppAgeScore(
 				appAgeHelper.getTwelveMonthsPercentage(),
 				appAgeHelper.getSixMonthsPercentage());
 
+<<<<<<< HEAD
 		Log.d("PTS Age", "PTS: " + pointsForAge);
 
 		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
 		Log.d("Root Access Points", "Root Points: " + rootedPoints);
+=======
+		// Log.d("PTS Age", "PTS: " + pointsForAge);
+
+		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
+		// Log.d("Root Access Points", "Root Points: " + rootedPoints);
+>>>>>>> 8515f6b... Added Trusted App Functionality
 
 		int totalPoints = pointsForPermissions + pointsForUnlockMethod
 				+ pointsForThirdPartyApps + pointsForEncryption + pointsForAge
 				+ rootedPoints;
+<<<<<<< HEAD
 		Log.d("Total Points", "Pts: " + totalPoints + " / 100");
+=======
+		// Log.d("Total Points", "Pts: " + totalPoints + " / 100");
+>>>>>>> 8515f6b... Added Trusted App Functionality
 
 		System.out.println(permissionTracker.toString());
 

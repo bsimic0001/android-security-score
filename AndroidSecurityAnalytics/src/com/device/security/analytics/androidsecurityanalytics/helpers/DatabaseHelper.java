@@ -8,9 +8,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -18,6 +20,7 @@ import android.util.Log;
 
 import com.device.security.analytics.androidsecurityanalytics.beans.FaqBean;
 import com.device.security.analytics.androidsecurityanalytics.beans.PermBean;
+import com.device.security.analytics.androidsecurityanalytics.beans.TrustedApp;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -48,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		this.DB_NAME = dbName;
 		this.DB_PATH = dbPath;
 		this.myContext = context;
-		copyDatabaseToLocal();
+		// copyDatabaseToLocal();
 	}
 
 	/**
@@ -95,10 +98,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			String dbPath = myContext.getFilesDir() + File.separator + DB_NAME;
 			checkDB = SQLiteDatabase.openDatabase(dbPath, null,
 					SQLiteDatabase.NO_LOCALIZED_COLLATORS
-							| SQLiteDatabase.OPEN_READONLY);
+							| SQLiteDatabase.OPEN_READWRITE);
 
 		} catch (SQLiteException e) {
+<<<<<<< HEAD
 			Log.d("DB ERROR", e.getMessage());
+=======
+			// Log.d("DB ERROR", e.getMessage());
+>>>>>>> 8515f6b... Added Trusted App Functionality
 		}
 
 		if (checkDB != null) {
@@ -183,10 +190,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 			myDataBase = SQLiteDatabase.openDatabase(dbPath, null,
 					SQLiteDatabase.NO_LOCALIZED_COLLATORS
-							| SQLiteDatabase.OPEN_READONLY);
+							| SQLiteDatabase.OPEN_READWRITE);
 
 		} catch (SQLException e) {
+<<<<<<< HEAD
 			Log.d("SQL Exception", "could not open DB ", e);
+=======
+			// Log.d("SQL Exception", "could not open DB ", e);
+>>>>>>> 8515f6b... Added Trusted App Functionality
 		}
 	}
 
@@ -272,10 +283,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return beans;
 	}
 
-	// Add your public helper methods to access and get content from the
-	// database.
-	// You could return cursors by doing "return myDataBase.query(....)" so
-	// it'd be easy
-	// to you to create adapters for your views.
+	public ArrayList<TrustedApp> getTrustedApps() {
+		ArrayList<TrustedApp> beans = new ArrayList<TrustedApp>();
+
+		Cursor c = myDataBase.query("TRUSTED_APPS", new String[] { "package",
+				"trusted" }, null, null, null, null, null);
+
+		if (c != null) {
+			c.moveToFirst();
+			while (c.isAfterLast() == false) {
+
+				String packageName = c.getString(0);
+				boolean trusted = c.getInt(1) > 0;
+
+				TrustedApp tb = new TrustedApp(packageName, trusted);
+				beans.add(tb);
+				c.moveToNext();
+			}
+		}
+
+		return beans;
+	}
+
+	public void insertTrustedApp(String packageName, boolean value) {
+		ContentValues values = new ContentValues();
+		values.put("package", packageName); // Contact Name
+		values.put("trusted", value); // Contact Phone Number
+
+		// Inserting Row
+		try {
+			myDataBase.insert("TRUSTED_APPS", null, values);
+			// myDataBase.close(); // Closing database connection
+		} catch (SQLiteConstraintException e) {
+			// Log.d("it exists", "item exists", e);
+		} finally {
+			// myDataBase.close();
+		}
+	}
+
+	public void deleteTrustedApp(String packageName) {
+		String whereClause = "package"+"=?";
+		String[]whereArgs = new String[] {packageName};
+		
+		myDataBase.delete("TRUSTED_APPS", whereClause, whereArgs);
+	}
+
+	public boolean isTrustedApp(String packageName) {
+		boolean result = false;
+
+		//Cursor c = myDataBase.rawQuery(
+		//		"SELECT count(*) from TRUSTED_APPS where package=?",
+		//		new String[] { packageName });
+		
+		
+		Cursor c = myDataBase.query("TRUSTED_APPS",
+		          new String[] {"package"},
+		          "package"+"="+"?",
+		          new String[] { packageName },
+		          null,
+		          null,
+		          null
+		         );
+
+		c.moveToFirst();
+		int count = c.getCount();
+		//int count = c.getCount();
+
+		if (count > 0)
+			result = true;
+
+		return result;
+	}
 
 }
