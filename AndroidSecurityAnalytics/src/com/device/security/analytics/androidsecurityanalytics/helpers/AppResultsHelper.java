@@ -174,25 +174,6 @@ public class AppResultsHelper {
 			}
 		}
 
-		// android.util.Log.d("Perm", permissionTracker.toString());
-
-		// Log.d("Age", appAgeHelper.toString());
-
-		// Log.d("Age", appAgeHelper.toString());
->>>>>>> 8515f6b... Added Trusted App Functionality
-
-		/*
-		 * Log.d("Points for Permissions", "Points: " +
-		 * AnalyticsUtils.getScoreForAllPerms(
-		 * permissionTracker.getPercentTop10(),
-		 * permissionTracker.getPercentTop20(),
-		 * permissionTracker.getPercentTop30()));
-		 * 
-		 * int pointsForPermissions = AnalyticsUtils.getScoreForAllPerms(
-		 * permissionTracker.getPercentTop10(),
-		 * permissionTracker.getPercentTop20(),
-		 * permissionTracker.getPercentTop30());
-		 */
 		// ---------------- NEW ----------------------------
 
 		ArrayList<AppDetailBean> allAppsList = new ArrayList<AppDetailBean>();
@@ -225,36 +206,17 @@ public class AppResultsHelper {
 		int pointsForUnlockMethod = AnalyticsUtils
 				.getScoreForUnlockSettings(lockUtils);
 
-		// Log.d("PTS LOCK METHORD", "PTS: " + pointsForUnlockMethod);
 		int pointsForThirdPartyApps = AnalyticsUtils
 				.getScoreForNumThirdPartyApps(numberOfThirdPartyApps);
-
-		// Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
-		// Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
-
-		// Log.d("Num Third Party Apps", "Num: " + numberOfThirdPartyApps);
-		// Log.d("PTS THIRD PARTY", "PTS: " + pointsForThirdPartyApps);
->>>>>>> 8515f6b... Added Trusted App Functionality
 
 		int pointsForEncryption = AnalyticsUtils
 				.getScoreForEncryptionSettings(lockUtils.getEncryptionScheme());
 
-		// Log.d("PTS ENCRYPTION", "PTS: " + pointsForEncryption);
-		
-		//appAgeHelper.setTotalApps(allAppsList.size());
-		
 		int pointsForAge = AnalyticsUtils.getAppAgeScore(
 				appAgeHelper.getTwelveMonthsPercentage(),
 				appAgeHelper.getSixMonthsPercentage());
 
-		// Log.d("PTS Age", "PTS: " + pointsForAge);
-
 		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
-		// Log.d("Root Access Points", "Root Points: " + rootedPoints);
-
-		int rootedPoints = AnalyticsUtils.getScoreForRootAccess();
-		// Log.d("Root Access Points", "Root Points: " + rootedPoints);
->>>>>>> 8515f6b... Added Trusted App Functionality
 
 		int totalPoints = pointsForPermissions + pointsForUnlockMethod
 				+ pointsForThirdPartyApps + pointsForEncryption + pointsForAge

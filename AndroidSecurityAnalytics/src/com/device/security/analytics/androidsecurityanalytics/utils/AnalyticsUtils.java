@@ -254,21 +254,6 @@ public class AnalyticsUtils {
 			else if (percentage == 0)
 				score = 4;
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-		
-		Log.d("NEW PERM SCORE", type + " - " + score);
-		
-=======
-
-		// Log.d("NEW PERM SCORE", type + " - " + score);
-
->>>>>>> 8515f6b... Added Trusted App Functionality
-=======
-
-		// Log.d("NEW PERM SCORE", type + " - " + score);
-
->>>>>>> trusted-app-branch
 		return score;
 	}
 

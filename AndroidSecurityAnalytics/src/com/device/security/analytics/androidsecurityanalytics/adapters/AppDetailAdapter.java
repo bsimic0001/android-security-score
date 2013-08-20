@@ -135,11 +135,6 @@ public class AppDetailAdapter extends ArrayAdapter<AppDetailBean> {
 					it.setImageBitmap(image);
 				} catch (NameNotFoundException e) {
 					// Log.d("Name Not Found Exception", e.getMessage());
-<<<<<<< HEAD
-					Log.d("Name Not Found Exception", e.getMessage());
-=======
-					// Log.d("Name Not Found Exception", e.getMessage());
->>>>>>> 8515f6b... Added Trusted App Functionality
 				}
 			}
 
