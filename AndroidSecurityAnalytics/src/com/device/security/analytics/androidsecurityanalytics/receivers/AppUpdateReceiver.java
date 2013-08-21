@@ -9,14 +9,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.device.security.analytics.androidsecurityanalytics.FrontPageActivity;
 import com.device.security.analytics.androidsecurityanalytics.helpers.AppResultsHelper;
 import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 import com.device.security.analytics.androidsecurityanalytics.utils.AnalyticsUtils;
 import com.device.security.analytics.androidsecurityanalytics.utils.LockPatternUtils;
-import com.device.security.analytics.androidsecurityanalytics.R;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class AppUpdateReceiver extends BroadcastReceiver {
 

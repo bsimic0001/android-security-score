@@ -9,13 +9,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
-import com.device.security.analytics.androidsecurityanalytics.R;
 import com.device.security.analytics.androidsecurityanalytics.ShowPermissionsActivity;
 import com.device.security.analytics.androidsecurityanalytics.adapters.AppDetailAdapter;
 import com.device.security.analytics.androidsecurityanalytics.beans.AppDetailBean;
 import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class AppDetailItemListener implements OnClickListener {
 

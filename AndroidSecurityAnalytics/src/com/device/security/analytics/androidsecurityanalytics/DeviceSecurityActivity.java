@@ -25,6 +25,7 @@ import com.device.security.analytics.androidsecurityanalytics.helpers.AppAgeHelp
 import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 import com.device.security.analytics.androidsecurityanalytics.utils.AnalyticsUtils;
 import com.device.security.analytics.androidsecurityanalytics.utils.LockPatternUtils;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class DeviceSecurityActivity extends Activity {
 

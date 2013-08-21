@@ -122,7 +122,7 @@ public class FileCreationHelper {
 			addTitlePage(document, packageManager, lockUtils, allAppsList,
 					criticalAppsList, highAppsList, mediumAppsList, lowAppsList, dbHelper);
 			addContent(document, packageManager, context, lockUtils, allAppsList,
-					criticalAppsList, highAppsList, mediumAppsList, lowAppsList);
+					criticalAppsList, highAppsList, mediumAppsList, lowAppsList, trustedAppSlist);
 			document.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -287,7 +287,8 @@ public class FileCreationHelper {
 			ArrayList<AppDetailBean> criticalAppsList,
 			ArrayList<AppDetailBean> highAppsList,
 			ArrayList<AppDetailBean> mediumAppsList,
-			ArrayList<AppDetailBean> lowAppsList) throws DocumentException {
+			ArrayList<AppDetailBean> lowAppsList,
+			ArrayList<AppDetailBean> trustedApps) throws DocumentException {
 
 		Anchor anchor = new Anchor(
 				"Apps Installed and Their Likelihood to Contain Malware",
@@ -330,6 +331,12 @@ public class FileCreationHelper {
 		addEmptyLine(lowAppsParagraph, 1);
 		addAppsToParagraph(lowAppsList, lowAppsParagraph, packageManager, context);
 		catPart.add(lowAppsParagraph);
+		
+		Paragraph trustedAppsParagraph = new Paragraph(
+				"Apps Marked as Trusted by Device Owner", mediumBoldBlue);
+		addEmptyLine(trustedAppsParagraph, 1);
+		addAppsToParagraph(trustedApps, trustedAppsParagraph, packageManager, context);
+		catPart.add(trustedAppsParagraph);
 
 		document.add(catPart);
 

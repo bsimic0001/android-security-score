@@ -10,6 +10,7 @@ import android.widget.ExpandableListView;
 import com.device.security.analytics.androidsecurityanalytics.adapters.FaqAdapter;
 import com.device.security.analytics.androidsecurityanalytics.beans.FaqBean;
 import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class FaqActivity extends Activity{
 	
