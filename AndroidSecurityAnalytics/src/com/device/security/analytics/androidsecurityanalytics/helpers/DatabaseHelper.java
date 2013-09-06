@@ -162,9 +162,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			myDataBase = SQLiteDatabase.openDatabase(dbPath, null,
 					SQLiteDatabase.NO_LOCALIZED_COLLATORS
 							| SQLiteDatabase.OPEN_READWRITE);
+<<<<<<< HEAD
 			
 			
 			myDataBase.execSQL("CREATE TABLE IF NOT EXISTS 'TRUSTED_APPS' ('package' VARCHAR PRIMARY KEY  NOT NULL  UNIQUE , 'trusted' BOOL)");
+=======
+
+			myDataBase.execSQL("CREATE TABLE IF NOT EXISTS 'TRUSTED_APPS' ('package' VARCHAR PRIMARY KEY NOT NULL UNIQUE , 'trusted' BOOL)");
+>>>>>>> master
 			
 		} catch (SQLException e) {
 			Log.i("Could not open DB", "could not open DB", e);
