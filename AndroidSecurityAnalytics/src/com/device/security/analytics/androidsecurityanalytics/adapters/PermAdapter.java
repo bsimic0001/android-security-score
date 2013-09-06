@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.device.security.analytics.androidsecurityanalytics.R;
 import com.device.security.analytics.androidsecurityanalytics.beans.PermBean;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class PermAdapter extends BaseExpandableListAdapter{
 	

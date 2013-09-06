@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.device.security.analytics.androidsecurityanalytics;
+package com.device.security.analytics.androidsecurityanalyticspro;
 
 public final class R {
     public static final class attr {
@@ -422,11 +422,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #TabWidget_divider com.device.security.analytics.androidsecurityanalytics:divider}</code></td><td> Drawable used to draw the divider between tabs.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabLayout com.device.security.analytics.androidsecurityanalytics:tabLayout}</code></td><td> Layout used to organize each tab's content.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabStripEnabled com.device.security.analytics.androidsecurityanalytics:tabStripEnabled}</code></td><td> Determines whether the strip under the tab indicators is drawn or not.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabStripLeft com.device.security.analytics.androidsecurityanalytics:tabStripLeft}</code></td><td> Drawable used to draw the left part of the strip underneath the tabs.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabStripRight com.device.security.analytics.androidsecurityanalytics:tabStripRight}</code></td><td> Drawable used to draw the right part of the strip underneath the tabs.</td></tr>
+           <tr><td><code>{@link #TabWidget_divider com.device.security.analytics.androidsecurityanalyticspro:divider}</code></td><td> Drawable used to draw the divider between tabs.</td></tr>
+           <tr><td><code>{@link #TabWidget_tabLayout com.device.security.analytics.androidsecurityanalyticspro:tabLayout}</code></td><td> Layout used to organize each tab's content.</td></tr>
+           <tr><td><code>{@link #TabWidget_tabStripEnabled com.device.security.analytics.androidsecurityanalyticspro:tabStripEnabled}</code></td><td> Determines whether the strip under the tab indicators is drawn or not.</td></tr>
+           <tr><td><code>{@link #TabWidget_tabStripLeft com.device.security.analytics.androidsecurityanalyticspro:tabStripLeft}</code></td><td> Drawable used to draw the left part of the strip underneath the tabs.</td></tr>
+           <tr><td><code>{@link #TabWidget_tabStripRight com.device.security.analytics.androidsecurityanalyticspro:tabStripRight}</code></td><td> Drawable used to draw the right part of the strip underneath the tabs.</td></tr>
            </table>
            @see #TabWidget_divider
            @see #TabWidget_tabLayout

@@ -148,32 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	}
 
-	public void copyDatabaseToLocal() {
-		try {
 
-			File sourceDBFile = new File(DB_PATH + DB_NAME);
-
-			// InputStream sourceDB = myContext.getAssets().open(DB_PATH +
-			// DB_NAME);
-			InputStream sourceDB = new FileInputStream(sourceDBFile);
-			OutputStream resultDB = new FileOutputStream(DB_NAME);
-
-			byte[] buffer = new byte[1024];
-			int length;
-			while ((length = sourceDB.read(buffer)) > 0) {
-				resultDB.write(buffer, 0, length);
-			}
-
-			// Close the streams
-			resultDB.flush();
-			resultDB.close();
-			sourceDB.close();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	public void openDataBase() {
 
@@ -187,8 +162,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			myDataBase = SQLiteDatabase.openDatabase(dbPath, null,
 					SQLiteDatabase.NO_LOCALIZED_COLLATORS
 							| SQLiteDatabase.OPEN_READWRITE);
+<<<<<<< HEAD
+			
+			
+			myDataBase.execSQL("CREATE TABLE IF NOT EXISTS 'TRUSTED_APPS' ('package' VARCHAR PRIMARY KEY  NOT NULL  UNIQUE , 'trusted' BOOL)");
+=======
 
 			myDataBase.execSQL("CREATE TABLE IF NOT EXISTS 'TRUSTED_APPS' ('package' VARCHAR PRIMARY KEY NOT NULL UNIQUE , 'trusted' BOOL)");
+>>>>>>> master
 			
 		} catch (SQLException e) {
 			Log.i("Could not open DB", "could not open DB", e);

@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.device.security.analytics.androidsecurityanalytics.R;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class ImageAdapter extends ArrayAdapter {
 	Activity context;

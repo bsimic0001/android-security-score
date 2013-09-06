@@ -18,6 +18,7 @@ import com.device.security.analytics.androidsecurityanalytics.beans.AppDetailBea
 import com.device.security.analytics.androidsecurityanalytics.beans.TrustedApp;
 import com.device.security.analytics.androidsecurityanalytics.helpers.AppResultsHelper;
 import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class AppResultsActivity extends ListActivity {
 

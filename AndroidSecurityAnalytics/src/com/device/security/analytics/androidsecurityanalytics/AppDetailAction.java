@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.device.security.analytics.androidsecurityanalytics.adapters.AppDetailAdapter;
 import com.device.security.analytics.androidsecurityanalytics.beans.AppDetailBean;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class AppDetailAction extends Activity {
 
