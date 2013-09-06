@@ -188,6 +188,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					SQLiteDatabase.NO_LOCALIZED_COLLATORS
 							| SQLiteDatabase.OPEN_READWRITE);
 
+			myDataBase.execSQL("CREATE TABLE IF NOT EXISTS 'TRUSTED_APPS' ('package' VARCHAR PRIMARY KEY NOT NULL UNIQUE , 'trusted' BOOL)");
+			
 		} catch (SQLException e) {
 			Log.i("Could not open DB", "could not open DB", e);
 		}
