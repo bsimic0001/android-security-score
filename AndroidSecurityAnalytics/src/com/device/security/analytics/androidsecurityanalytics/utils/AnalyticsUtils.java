@@ -435,13 +435,18 @@ public class AnalyticsUtils {
 			String packageName) {
 		boolean result = false;
 
-		String installerPackage = packageManager
-				.getInstallerPackageName(packageName);
+		try {
 
-		if (installerPackage == null
-				|| (!installerPackage.equals("com.android.vending") && !installerPackage
-						.equals("de.androidpit.app"))) {
-			result = true;
+			String installerPackage = packageManager
+					.getInstallerPackageName(packageName);
+
+			if (installerPackage == null
+					|| (!installerPackage.equals("com.android.vending") && !installerPackage
+							.equals("de.androidpit.app"))) {
+				result = true;
+			}
+		} catch (IllegalArgumentException e) {
+			return result;
 		}
 
 		return result;
