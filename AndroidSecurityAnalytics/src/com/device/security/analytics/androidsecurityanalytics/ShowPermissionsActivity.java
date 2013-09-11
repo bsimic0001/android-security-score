@@ -2,21 +2,19 @@ package com.device.security.analytics.androidsecurityanalytics;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
-import com.device.security.analytics.androidsecurityanalytics.adapters.FaqAdapter;
 import com.device.security.analytics.androidsecurityanalytics.adapters.PermAdapter;
 import com.device.security.analytics.androidsecurityanalytics.beans.PermBean;
 import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 import com.device.security.analytics.androidsecurityanalytics.utils.AnalyticsUtils;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class ShowPermissionsActivity extends Activity {
 

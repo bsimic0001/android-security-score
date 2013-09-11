@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
@@ -26,8 +24,10 @@ import android.widget.TextView;
 import com.device.security.analytics.androidsecurityanalytics.helpers.AppResultsHelper;
 import com.device.security.analytics.androidsecurityanalytics.helpers.DatabaseHelper;
 import com.device.security.analytics.androidsecurityanalytics.helpers.FileCreationHelper;
+import com.device.security.analytics.androidsecurityanalytics.tasks.ReportExportTask;
 import com.device.security.analytics.androidsecurityanalytics.utils.AnalyticsUtils;
 import com.device.security.analytics.androidsecurityanalytics.utils.LockPatternUtils;
+import com.device.security.analytics.androidsecurityanalyticspro.R;
 
 public class FrontPageActivity extends Activity {
 
@@ -190,34 +190,7 @@ public class FrontPageActivity extends Activity {
 	public void exportResults(View view) {
 		//Log.d("exportResults", "exportResults method");
 
-		new AlertDialog.Builder(this)
-				.setTitle("Go Pro & Support Us!")
-				.setMessage(
-						"The report is a Android Security Score Pro feature. Download it?")
-				.setPositiveButton("Yes, of Course!",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								try {
-									startActivity(new Intent(
-											Intent.ACTION_VIEW,
-											Uri.parse("market://details?id="
-													+ getPackageName() + "pro")));
-								} catch (android.content.ActivityNotFoundException anfe) {
-									startActivity(new Intent(
-											Intent.ACTION_VIEW,
-											Uri.parse("http://play.google.com/store/apps/details?id="
-													+ getPackageName() + "pro")));
-								}
-							}
-						})
-				.setNegativeButton("Maybe Later", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						// do nothing
-					}
-				}).show();
-
-		// new ReportExportTask(this, "Generating report...").execute();
+		new ReportExportTask(this, "Generating report...").execute();
 	}
 
 	public void generateReportFile() {
