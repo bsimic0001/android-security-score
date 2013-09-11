@@ -65,16 +65,25 @@ public class DeviceSecurityActivity extends Activity {
 		AppAgeHelper appAgeHelper = new AppAgeHelper();
 		int numberOfThirdPartyApps = 0;
 
-		final List<PackageInfo> packageList = getPackageManager()
-				.getInstalledPackages(PackageManager.GET_PERMISSIONS);
+		List<PackageInfo> packageList = getPackageManager()
+				.getInstalledPackages(0);
 
 		List<String> appsList = new ArrayList<String>();
 
 		for (Object obj : packageList) {
 
 			// ResolveInfo resolveInfo = (ResolveInfo) obj;
-			PackageInfo packageInfo = (PackageInfo) obj;
+			//PackageInfo packageInfo = (PackageInfo) obj;
 
+		    PackageInfo packageInfo = (PackageInfo) obj;
+			try {
+				packageInfo = getPackageManager().getPackageInfo(packageInfo.applicationInfo.packageName, PackageManager.GET_PERMISSIONS);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 			if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1
 					&& !packageInfo.applicationInfo.packageName
 							.equals("com.example.android.apis")
